@@ -8,8 +8,9 @@ const App = () => {
   return (
 
     <div>
-
-
+      <div>
+        <CrudApp/>
+      </div>
      <div>
       <CrudApi/>
      </div>

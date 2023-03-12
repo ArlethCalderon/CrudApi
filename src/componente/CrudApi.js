@@ -1,20 +1,9 @@
-const initialDb= [
-    {
-        id:0,
-        name:'Rosa',
-        lastname:'Gonzalez'
-    },
-    {
-        id:1,
-        name:'Michael',
-        lastname:'Perez'
-    },
-]
-
-
+import { useState } from "react";
+import CrudForm from "./CrudForm"
+import CrudTable from "./CrudTable"
 
 const CrudApi = () => {
-    const [db, setDb] = useState()
+    const [db, setDb] = useState([])
     const [datatoEdit,setDataToEdit]=useState(null)
     const createData=(data)=>{
         data.id=db.length;

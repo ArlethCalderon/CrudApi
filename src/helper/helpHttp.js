@@ -1,20 +1,21 @@
+const helpHTTP=()=>{
 const customFetch = (endpoint, options)=> {
     const defaultHeader={
         accept: "application/json"
     };
     const controller = new AbortController();
     options.signal = controller.signal;
-    options,method = options.method || "GET";
+    options.method = options.method || "GET";
     options.headers = options.headers
         ? {...defaultHeader,...options.headers}
         : defaultHeader;
-    opcions.body = JSON.stringify(options.body) || false;
+    options.body = JSON.stringify(options.body) || false;
     if(!options.body) delete options.body;
 
         console.log(options);
         setTimeout(() =>{
             controller.abort();
-        }, 1000);
+        }, 3000);
     
     return fetch(endpoint, options)
         .then((response) =>
@@ -29,19 +30,24 @@ const customFetch = (endpoint, options)=> {
         .catch((err) => err);
     };
 
-    const get= (url, options = {}) => {
-        options.method='POST'
-        return customFetch(url,options);
+    const get= (url, option = {}) => customFetch (url,option);
+    const post=(url, option= {}) => {
+        option.method='POST';
+        return customFetch(url.option);
     };
-    const post=() => {}
-    const put = () => {}
-    const del = () => {}
-
+    const put = (url, option = {}) => {
+        option.method='PUT';
+        return customFetch(url,option);
+    };
+    const del = (url, option) => {
+        option.method= 'DELETE';
+        return customFetch(url,option);
+    }; 
     return {
         get,
         post,
         put,
         del,
-    }
-
+    } 
+}
 export default helpHTTP

@@ -16,6 +16,7 @@ const CrudApi = () => {
             //console.log(response)
             if(!response.err){
                 setDb(response)
+                
                 setError(null)
             }
             else{
@@ -53,9 +54,9 @@ const CrudApi = () => {
             <h1>CRUD APPI</h1>
 
             {loading && <Loader/>}
-            {error && <Message/>}      
             <CrudForm create={createData} update={updateData} datatoEdit={datatoEdit}setDataToEdit={setDataToEdit}/>
             {db && <CrudTable data={db} setDataToEdit={setDataToEdit} deleteData={deleteData} />}
+            {error && <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#fff"/>}      
         </div>
     )
 }

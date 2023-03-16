@@ -11,12 +11,7 @@ const CrudTable = ({data,setDataToEdit, deleteData}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.length === 0 ? (
-                            <tr>
-                                <td colSpan="3">No Exiten elementos</td>
-                            </tr>
-                        ) : (
+                    {data.length > 0 ? (
                             data.map(item => (
                                 <tr key={item.id}>
                                     <td>{item.name}</td>
@@ -26,11 +21,12 @@ const CrudTable = ({data,setDataToEdit, deleteData}) => {
                                         <button onClick={()=>deleteData(item.id)}>Eliminar</button>
                                     </td>
                                 </tr>
-
-                            )
-                            )
-                        )
-                    }
+                            ))
+                        ) : (
+                            <tr>
+                                <td>No hay elementos</td>
+                            </tr>
+                        )}
                 </tbody>
             </table>
         </div>

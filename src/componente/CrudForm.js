@@ -34,6 +34,8 @@ const CrudForm = ({update, setDataToEdit,create, datatoEdit}) => {
         }
         if(form.id===null){
             create(form)
+        console.log("limpiando")
+
         }
         else{
             update(form)
@@ -41,6 +43,7 @@ const CrudForm = ({update, setDataToEdit,create, datatoEdit}) => {
         handleReset();
     }
     const handleReset=(e)=> {
+        console.log("limpiando")
         setForm(initialForm);
         setDataToEdit(null);
     }

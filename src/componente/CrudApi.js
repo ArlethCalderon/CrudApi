@@ -35,18 +35,58 @@ const CrudApi = () => {
     const [loading, setLoading]=useState(false)
 
     const createData=(data)=>{
-        data.id=db.length;
-        console.log("elemento de la data "+data)
-        setDb([...db,data])
+        let option = {
+            body: data,
+            headers:{"content-type": "application/json"},
+        };
+        data.id=Date.now()
+        api.post(url,option).then((resp)=>{
+            console.log(resp)
+            if(!resp.err){
+                setDb([...db,resp])
+            }
+            else{
+                setError(resp);
+            }
+        });
+        
     };
     const updateData=(data)=>{
-        let newData=db.map(item=> item.id===data.id?data:item)
-        setDb(newData)
-    }
+        let endpoint= `${url}/${data.id}`
+        let option = {
+            body: data,
+            headers: { "content-type": "application/json" },
+        };
+        api.put(endpoint, option).then((resp) => {
+            console.log(resp);
+            if(!resp.err) {
+                let newData = db.map((item) => (item.id === data.id ? data : item));
+                setDb(newData);
+            }
+            else {
+                setError(resp);
+            }
+        });
+    };
     const deleteData=(id)=>{
-        console.log("elemento eliminar" +id)
-        let eliminar=db.filter(item=>item.id!==id)
-        setDb(eliminar)
+        let isDelete = window.confirm(
+            `¿Estas seguro de eliminar el registro con el id ${id}?`
+        );
+        if (isDelete) {
+            let endpoint = `${url}/${id}`;
+            let option = {
+                headers: { "content-type": "application/json"},
+            };
+            api.del(endpoint,option).then((resp)=>{
+                console.log(resp);
+                if(!resp.err){
+                    let eliminar=db.filter((item)=>item.id !==id);
+                    setDb(eliminar);
+                } else {
+                    setError(resp);
+                }
+            });
+        }
     };
 
     return (

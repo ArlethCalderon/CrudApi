@@ -1,10 +1,11 @@
 const helpHTTP=()=>{
 const customFetch = (endpoint, options)=> {
     const defaultHeader={
-        accept: "application/json"
+        accept: "application/json",
     };
     const controller = new AbortController();
     options.signal = controller.signal;
+    console.log("debajo del controller")
     options.method = options.method || "GET";
     options.headers = options.headers
         ? {...defaultHeader,...options.headers}
@@ -31,9 +32,11 @@ const customFetch = (endpoint, options)=> {
     };
 
     const get= (url, option = {}) => customFetch (url,option);
-    const post=(url, option= {}) => {
-        option.method='POST';
-        return customFetch(url.option);
+    
+    const post=(url, options= {}) => {
+        options.method='POST';
+        console.log("llamando post")
+        return customFetch(url,options);
     };
     const put = (url, option = {}) => {
         option.method='PUT';
